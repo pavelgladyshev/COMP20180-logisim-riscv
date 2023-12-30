@@ -26,9 +26,6 @@
       <a name="facing" val="west"/>
     </tool>
     <tool name="Tunnel">
-      <a name="facing" val="south"/>
-    </tool>
-    <tool name="Clock">
       <a name="facing" val="north"/>
     </tool>
   </lib>
@@ -38,6 +35,7 @@
   <lib desc="#Memory" name="4">
     <tool name="RAM">
       <a name="addrWidth" val="10"/>
+      <a name="appearance" val="logisim_evolution"/>
       <a name="dataWidth" val="32"/>
     </tool>
   </lib>
@@ -354,6 +352,9 @@
       <a name="incoming" val="10"/>
     </comp>
     <comp lib="0" loc="(290,1340)" name="Constant"/>
+    <comp lib="0" loc="(320,280)" name="Clock">
+      <a name="facing" val="north"/>
+    </comp>
     <comp lib="0" loc="(380,1000)" name="Constant">
       <a name="value" val="0xffff80"/>
       <a name="width" val="24"/>
@@ -709,6 +710,11 @@
       <a name="asyncread" val="true"/>
       <a name="dataWidth" val="32"/>
     </comp>
+    <comp lib="4" loc="(340,250)" name="Counter">
+      <a name="appearance" val="classic"/>
+      <a name="max" val="0xffffffff"/>
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="4" loc="(600,280)" name="RAM">
       <a name="addrWidth" val="14"/>
       <a name="appearance" val="classic"/>
@@ -719,12 +725,18 @@
       <a name="addrWidth" val="14"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 14 32
-400e37 80e0e13 ffff8eb7 e8e93 2000f13 e2f83 1fea023 4e0e13
-4e8e93 ffff0f13 fe0f16e3 ffff0337 1030313 42b7 f3f28293 531023
-60600293 531023 62b7 b5b28293 531023 52b7 f4f28293 531023
-fd5ff06f 7*0 8*ffffffff fff81fff ffe1e7ff ffc7f3ff ff8f39ff ff8f3dff
-ff0ffeff ff07feff ff007eff ff003eff ff001eff ff030eff ff830dff ff8009ff
-ffc003ff ffe007ff fff80fff 8*ffffffff
+fc10117 ffc10113 513 593 613 6c000ef eeeeeeee fd010113
+2812623 3010413 fca42e23 fe042623 2c0006f fec42783 fdc42703 f70733
+ffff07b7 c78793 74703 e78023 fec42783 178793 fef42623 fec42783
+fdc42703 f707b3 7c783 fc0794e3 13 2c12403 3010113 8067
+fe010113 112e23 812c23 2010413 ffff87b7 fef42423 4007b7 11c78513
+f7dff0ef fe042623 3c0006f fec42783 279793 fe842703 f707b3 400737
+12470693 fec42703 271713 e68733 72703 e7a023 fec42783 178793
+fef42623 fec42703 1f00793 fce7d0e3 ffff07b7 1078793 4737 f3f70713
+e79023 793 78513 1c12083 1812403 2010113 8067 6c6c6548
+a216f 8*ffffffff fff81fff ffe1e7ff ffc7f3ff ff8f39ff ff8f3dff ff0ffeff
+ff07feff ff007eff ff003eff ff001eff ff030eff ff830dff ff8009ff ffc003ff
+ffe007ff fff80fff 8*ffffffff
 </a>
       <a name="dataWidth" val="32"/>
       <a name="labelvisible" val="true"/>
@@ -776,10 +788,10 @@ ffc003ff ffe007ff fff80fff 8*ffffffff
     <comp lib="8" loc="(1145,565)" name="Text">
       <a name="text" val="clear"/>
     </comp>
-    <comp lib="8" loc="(1168,409)" name="Text">
+    <comp lib="8" loc="(1165,405)" name="Text">
       <a name="text" val="MMIO Keyboard"/>
     </comp>
-    <comp lib="8" loc="(1170,109)" name="Text">
+    <comp lib="8" loc="(1170,105)" name="Text">
       <a name="text" val="MMIO DIsplay"/>
     </comp>
     <comp lib="8" loc="(1185,30)" name="Text">
@@ -797,7 +809,7 @@ ffc003ff ffe007ff fff80fff 8*ffffffff
     <comp lib="8" loc="(1290,340)" name="Text">
       <a name="text" val="TCR"/>
     </comp>
-    <comp lib="8" loc="(134,162)" name="Text">
+    <comp lib="8" loc="(130,160)" name="Text">
       <a name="text" val="Data in --&gt;"/>
     </comp>
     <comp lib="8" loc="(1375,615)" name="Text">
@@ -813,19 +825,19 @@ ffc003ff ffe007ff fff80fff 8*ffffffff
       <a name="font" val="SansSerif plain 16"/>
       <a name="text" val="PC"/>
     </comp>
-    <comp lib="8" loc="(193,898)" name="Text">
+    <comp lib="8" loc="(190,895)" name="Text">
       <a name="text" val="Bitmap Display (Colour)"/>
     </comp>
     <comp lib="8" loc="(235,310)" name="Text">
       <a name="text" val="press to continue"/>
     </comp>
-    <comp lib="8" loc="(290,250)" name="Text">
+    <comp lib="8" loc="(301,205)" name="Text">
       <a name="text" val="CPU halted"/>
     </comp>
     <comp lib="8" loc="(305,60)" name="Text">
       <a name="text" val="Address --&gt;"/>
     </comp>
-    <comp lib="8" loc="(305,92)" name="Text">
+    <comp lib="8" loc="(305,90)" name="Text">
       <a name="text" val="Data out  --&gt;"/>
     </comp>
     <comp lib="8" loc="(720,270)" name="Text">
@@ -834,7 +846,7 @@ ffc003ff ffe007ff fff80fff 8*ffffffff
     <comp lib="8" loc="(725,60)" name="Text">
       <a name="text" val="ROM"/>
     </comp>
-    <comp lib="8" loc="(744,877)" name="Text">
+    <comp lib="8" loc="(740,875)" name="Text">
       <a name="text" val="Monochrome Bitmap Display"/>
     </comp>
     <comp lib="8" loc="(75,90)" name="Text">
@@ -973,6 +985,7 @@ ffc003ff ffe007ff fff80fff 8*ffffffff
     <wire from="(240,1330)" to="(300,1330)"/>
     <wire from="(240,160)" to="(260,160)"/>
     <wire from="(240,220)" to="(250,220)"/>
+    <wire from="(240,240)" to="(290,240)"/>
     <wire from="(240,450)" to="(240,470)"/>
     <wire from="(240,70)" to="(380,70)"/>
     <wire from="(250,1250)" to="(250,1370)"/>
@@ -986,6 +999,9 @@ ffc003ff ffe007ff fff80fff 8*ffffffff
     <wire from="(280,450)" to="(280,480)"/>
     <wire from="(290,1290)" to="(300,1290)"/>
     <wire from="(290,1340)" to="(300,1340)"/>
+    <wire from="(290,240)" to="(290,260)"/>
+    <wire from="(290,260)" to="(310,260)"/>
+    <wire from="(320,270)" to="(320,280)"/>
     <wire from="(320,450)" to="(320,490)"/>
     <wire from="(360,100)" to="(360,480)"/>
     <wire from="(360,100)" to="(400,100)"/>

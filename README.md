@@ -7,7 +7,7 @@ RISC-V CPU Hardware models in Logisim-Evolution along with sample code projects.
 
 Circuit risc_v_rv32im.circ implements 32-bit RISC-V core using two clock cycles per instruction (one fetches the instruction, the other executes it)
 
-Circuit risc_v_rv32im_adv.circ uses pipelining to combine execution of an arithmetic instruction with fetching the next instruction. As a result, some instructions are executed using just one clock cycle.
+Circuit risc_v_rv32im_adv.circ uses pipelining to combine execution of an arithmetic instruction with fetching the next instruction, it also uses caching of instructions fetched after branching or load/store to avoid additional fetch cycle when the same instruction is encountered again. As a result, some instructions are executed using just one clock cycle and a speedup of about 25% is achieved.
 
 To compile demo software projects use a recent Ubuntu Linux (22.04 at the time of writing),
 having installed build-essential, binutils-riscv64-unknown-elf, and gcc-riscv64-unknown-elf 
