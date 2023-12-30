@@ -1,4 +1,4 @@
-# COMP-logisim-riscv
+# COMP20180-logisim-riscv
 
 RISC-V CPU Hardware models in Logisim-Evolution along with sample code projects. Originally designed as teaching aids for UCD's COMP 20180 module "Intro to Operating Systems"
 
