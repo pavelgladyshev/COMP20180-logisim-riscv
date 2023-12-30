@@ -9,7 +9,7 @@ Circuit risc_v_rv32im.circ implements 32-bit RISC-V core using two clock cycles 
 
 Circuit risc_v_rv32im_adv.circ uses pipelining to combine execution of an arithmetic instruction with fetching the next instruction. As a result, some instructions are executed using just one clock cycle.
 
-To compile sample projects use a recent Ubuntu Linux (22.04 at the time of writing),
+To compile demo software projects use a recent Ubuntu Linux (22.04 at the time of writing),
 having installed build-essential, binutils-riscv64-unknown-elf, and gcc-riscv64-unknown-elf 
 packages:
 
