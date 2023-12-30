@@ -352,7 +352,7 @@
       <a name="incoming" val="10"/>
     </comp>
     <comp lib="0" loc="(290,1340)" name="Constant"/>
-    <comp lib="0" loc="(320,280)" name="Clock">
+    <comp lib="0" loc="(300,350)" name="Clock">
       <a name="facing" val="north"/>
     </comp>
     <comp lib="0" loc="(380,1000)" name="Constant">
@@ -710,7 +710,7 @@
       <a name="asyncread" val="true"/>
       <a name="dataWidth" val="32"/>
     </comp>
-    <comp lib="4" loc="(340,250)" name="Counter">
+    <comp lib="4" loc="(320,320)" name="Counter">
       <a name="appearance" val="classic"/>
       <a name="max" val="0xffffffff"/>
       <a name="width" val="32"/>
@@ -815,6 +815,9 @@ ffe007ff fff80fff 8*ffffffff
     <comp lib="8" loc="(1375,615)" name="Text">
       <a name="text" val="clear"/>
     </comp>
+    <comp lib="8" loc="(140,285)" name="Text">
+      <a name="text" val="press to continue"/>
+    </comp>
     <comp lib="8" loc="(1400,205)" name="Text">
       <a name="text" val="Display is always ready"/>
     </comp>
@@ -828,11 +831,11 @@ ffe007ff fff80fff 8*ffffffff
     <comp lib="8" loc="(190,895)" name="Text">
       <a name="text" val="Bitmap Display (Colour)"/>
     </comp>
-    <comp lib="8" loc="(235,310)" name="Text">
-      <a name="text" val="press to continue"/>
-    </comp>
-    <comp lib="8" loc="(301,205)" name="Text">
+    <comp lib="8" loc="(300,205)" name="Text">
       <a name="text" val="CPU halted"/>
+    </comp>
+    <comp lib="8" loc="(303,291)" name="Text">
+      <a name="text" val="Clock cycles"/>
     </comp>
     <comp lib="8" loc="(305,60)" name="Text">
       <a name="text" val="Address --&gt;"/>
@@ -985,7 +988,7 @@ ffe007ff fff80fff 8*ffffffff
     <wire from="(240,1330)" to="(300,1330)"/>
     <wire from="(240,160)" to="(260,160)"/>
     <wire from="(240,220)" to="(250,220)"/>
-    <wire from="(240,240)" to="(290,240)"/>
+    <wire from="(240,240)" to="(250,240)"/>
     <wire from="(240,450)" to="(240,470)"/>
     <wire from="(240,70)" to="(380,70)"/>
     <wire from="(250,1250)" to="(250,1370)"/>
@@ -993,15 +996,15 @@ ffe007ff fff80fff 8*ffffffff
     <wire from="(250,1370)" to="(300,1370)"/>
     <wire from="(250,200)" to="(250,220)"/>
     <wire from="(250,220)" to="(260,220)"/>
+    <wire from="(250,240)" to="(250,330)"/>
+    <wire from="(250,330)" to="(290,330)"/>
     <wire from="(270,1230)" to="(270,1250)"/>
     <wire from="(270,1230)" to="(280,1230)"/>
     <wire from="(280,1350)" to="(300,1350)"/>
     <wire from="(280,450)" to="(280,480)"/>
     <wire from="(290,1290)" to="(300,1290)"/>
     <wire from="(290,1340)" to="(300,1340)"/>
-    <wire from="(290,240)" to="(290,260)"/>
-    <wire from="(290,260)" to="(310,260)"/>
-    <wire from="(320,270)" to="(320,280)"/>
+    <wire from="(300,340)" to="(300,350)"/>
     <wire from="(320,450)" to="(320,490)"/>
     <wire from="(360,100)" to="(360,480)"/>
     <wire from="(360,100)" to="(400,100)"/>
