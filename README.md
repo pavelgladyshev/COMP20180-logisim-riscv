@@ -26,11 +26,13 @@ Although Logisim simulation of the more complex risc_v_rv32im_adv.circ is slower
 To compile demo software projects in *demo-projects* folder use a recent Ubuntu Linux (22.04 at the time of writing) running in a virtual machine or on a stand-alone computer, having installed build-essential, binutils-riscv64-unknown-elf, and gcc-riscv64-unknown-elf packages:
 
 $ sudo apt install build-essential 
+
 $ sudo apt install binutils-riscv64-unknown-elf gcc-riscv64-unknown-elf
 
 To build a project cd into the directory with the project code and run make.
 
 $ cd simple-c
+
 $ make
 
 This should produce a .TXT file with raw binary code in hexadecimal, which can be loaded directly into Logisim-Evolution ROM components in the RISC-V models. An .ASM file is produced alongside the .TXT and shows the CPU instructions and their absolute memory addresses in human-readable mnemonic form.
