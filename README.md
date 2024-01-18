@@ -51,7 +51,7 @@ $ make qemu
 
 The second command will compile the executable and automatically start qemu giving it the compiled executable to run.
 
-To start QEMU in debugging mode, run make with qemu-dgb target:
+To start debugging your code using gdb-multiarch and QEMU, run make with qemu-gdb target:
 
 $ make qemu-gdb
 
