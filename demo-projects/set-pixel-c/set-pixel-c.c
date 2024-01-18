@@ -17,6 +17,6 @@ void resetpixel(int x, int y)
 int main()
 {
     setpixel(5,8);
-    resetpixel(5,8);
+    //resetpixel(5,8);
 }
 

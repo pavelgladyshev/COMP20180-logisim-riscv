@@ -33,9 +33,29 @@ To build a project cd into the directory with the project code and run make.
 
 $ cd simple-c
 
+$ make clean
 $ make
 
 This should produce a .TXT file with raw binary code in hexadecimal, which can be loaded directly into Logisim-Evolution ROM components in the RISC-V models. An .ASM file is produced alongside the .TXT and shows the CPU instructions and their absolute memory addresses in human-readable mnemonic form.
+
+# Compiling software for RISC-V simulated in qemu
+
+Some of the projects including simple-assembly, set-pixel-asm, set-pixel-c, simple-c, and c-and-assembly can be compiled and run on QEMU simulator using comp20180 machine, which I created for COMP 20180 course by adding some of the RARS peripherals to QEMU virt platform. 
+
+Due to memory map differences, the address of serial console (TDR) in QEMU is 0x10000000 instead of 0xffff000C in Logisim risc_v_rv32im.circ and RARS simulators. So the source code of simple-c and c-and-assembly needs some changes in order to enable printing onto the console. Please see simple-c/main.c file for an example of how to do it (see commented out line).
+
+To build a suitable project for QEMU, cd into the directory with the project code and run make as follows:
+
+$ make clean
+$ make qemu
+
+The second command will compile the executable and automatically start qemu giving it the compiled executable to run.
+
+To start QEMU in debugging mode, run make with qemu-dgb target:
+
+$ make qemu-gdb
+
+This will launch QEMU and freeze it until you connect to localhost:1234 trom a different terminal window using gdb-multiarch.
 
 Read Makefile for further detail on configuration and build process.
 

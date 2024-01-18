@@ -18,10 +18,13 @@ void printstr(char *str)
  
     ptr = str;    // set pointer to the start of the string
     
-    TDR = (volatile int *)0xffff000c;  // set TDR pointer to the address of the memory-mapped Transmitter Data Register
-                                       // the (volatile int *)0xffff000c expession "casts" 0xffff000c as the value for the pointer 
-                                       // (i.e. as memory address)  
-    
+    TDR = (volatile int *)0xffff000c;  // set TDR pointer to the address of Logisim memory-mapped Transmitter Data Register
+                                       // the (volatile int *)0xffff000c expession "casts" 0xffff000c as the value 
+                                       // for the pointer (i.e. as memory address)  
+
+    // UNCOMMENT THE NEXT LINE if compiling for QEMU!!!
+    // TDR = (volatile int *)0x10000000;  // Address of console transmitter in QEMU comp20180 machine.
+
     while (*ptr != '\0')  // keep printing characters until we reach NUL character ('\0') at the end of the string
     {
         *TDR = *ptr;      // get next char (pointed to by *ptr) from the string and write it to the memory location pointed to by TDR
