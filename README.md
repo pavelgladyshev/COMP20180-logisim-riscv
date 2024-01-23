@@ -34,6 +34,7 @@ To build a project cd into the directory with the project code and run make.
 $ cd simple-c
 
 $ make clean
+
 $ make
 
 This should produce a .TXT file with raw binary code in hexadecimal, which can be loaded directly into Logisim-Evolution ROM components in the RISC-V models. An .ASM file is produced alongside the .TXT and shows the CPU instructions and their absolute memory addresses in human-readable mnemonic form.
@@ -47,6 +48,7 @@ Due to memory map differences, the address of serial console (TDR) in QEMU is 0x
 To build a suitable project for QEMU, cd into the directory with the project code and run make as follows:
 
 $ make clean
+
 $ make qemu
 
 The second command will compile the executable and automatically start qemu giving it the compiled executable to run.
