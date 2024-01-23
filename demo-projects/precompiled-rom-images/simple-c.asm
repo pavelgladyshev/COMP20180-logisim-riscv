@@ -11,8 +11,8 @@ Disassembly of section .init:
 	.globl _start
 _start:                       # this is where CPU starts executing instructions after reset / power-on
 	la sp,__stack_init        # initialise stack pointer (with the value that points to the last word of RAM)
-  400000:	0fc10117          	auipc	sp,0xfc10
-  400004:	ffc10113          	addi	sp,sp,-4 # 1000fffc <__stack_init>
+  400000:	0fc20117          	auipc	sp,0xfc20
+  400004:	ffc10113          	addi	sp,sp,-4 # 1001fffc <__stack_init>
 	li a0,0                   # populate optional main() parameters with dummy values (just in case)
   400008:	00000513          	li	a0,0
 	li a1,0
@@ -30,18 +30,18 @@ exit:
 Disassembly of section .text:
 
 0040001c <printstr>:
-    
-    TDR = (volatile int *)0xffff000c;  // set TDR pointer to the address of the memory-mapped Transmitter Data Register
-                                       // the (volatile int *)0xffff000c expession "casts" 0xffff000c as the value for the pointer 
-                                       // (i.e. as memory address)  
-    
+                                       // for the pointer (i.e. as memory address)  
+
+    // UNCOMMENT THE NEXT LINE if compiling for QEMU!!!
+    // TDR = (volatile int *)0x10000000;  // Address of console transmitter in QEMU comp20180 machine.
+
     while (*ptr != '\0')  // keep printing characters until we reach NUL character ('\0') at the end of the string
   40001c:	00054783          	lbu	a5,0(a0)
   400020:	00078c63          	beqz	a5,400038 <printstr+0x1c>
     {
         *TDR = *ptr;      // get next char (pointed to by *ptr) from the string and write it to the memory location pointed to by TDR
   400024:	ffff0737          	lui	a4,0xffff0
-  400028:	00f72623          	sw	a5,12(a4) # ffff000c <__stack_init+0xeffe0010>
+  400028:	00f72623          	sw	a5,12(a4) # ffff000c <__stack_init+0xeffd0010>
      
         ptr = ptr+1;      // advance ptr forward in memory by the size of 1 char (i.e. increase its value by 1).
   40002c:	00150513          	addi	a0,a0,1
@@ -60,8 +60,8 @@ int main()
   40003c:	ff010113          	addi	sp,sp,-16
   400040:	00112623          	sw	ra,12(sp)
     printstr("Hello World!\n");
-  400044:	00400537          	lui	a0,0x400
-  400048:	06050513          	addi	a0,a0,96 # 400060 <main+0x24>
+  400044:	00000517          	auipc	a0,0x0
+  400048:	01c50513          	addi	a0,a0,28 # 400060 <main+0x24>
   40004c:	fd1ff0ef          	jal	ra,40001c <printstr>
 }
   400050:	00000513          	li	a0,0

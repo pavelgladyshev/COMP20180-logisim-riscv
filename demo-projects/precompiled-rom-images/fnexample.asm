@@ -11,8 +11,8 @@ Disassembly of section .init:
 	.globl _start
 _start:                       # this is where CPU starts executing instructions after reset / power-on
 	la sp,__stack_init        # initialise stack pointer (with the value that points to the last word of RAM)
-  400000:	0fc10117          	auipc	sp,0xfc10
-  400004:	ffc10113          	addi	sp,sp,-4 # 1000fffc <__stack_init>
+  400000:	0fc20117          	auipc	sp,0xfc20
+  400004:	ffc10113          	addi	sp,sp,-4 # 1001fffc <__stack_init>
 	li a0,0                   # populate optional main() parameters with dummy values (just in case)
   400008:	00000513          	li	a0,0
 	li a1,0
@@ -110,7 +110,7 @@ inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // wri
   4000d8:	00050793          	mv	a5,a0
   4000dc:	fef407a3          	sb	a5,-17(s0)
   4000e0:	ffff07b7          	lui	a5,0xffff0
-  4000e4:	00c78793          	addi	a5,a5,12 # ffff000c <__stack_init+0xeffe0010>
+  4000e4:	00c78793          	addi	a5,a5,12 # ffff000c <__stack_init+0xeffd0010>
   4000e8:	fef44703          	lbu	a4,-17(s0)
   4000ec:	00e7a023          	sw	a4,0(a5)
   4000f0:	00000013          	nop
@@ -281,7 +281,7 @@ inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value 
   400274:	00812623          	sw	s0,12(sp)
   400278:	01010413          	addi	s0,sp,16
   40027c:	ffff07b7          	lui	a5,0xffff0
-  400280:	0007a783          	lw	a5,0(a5) # ffff0000 <__stack_init+0xeffe0004>
+  400280:	0007a783          	lw	a5,0(a5) # ffff0000 <__stack_init+0xeffd0004>
   400284:	00078513          	mv	a0,a5
   400288:	00c12403          	lw	s0,12(sp)
   40028c:	01010113          	addi	sp,sp,16
@@ -295,7 +295,7 @@ inline int readchar() { return *((volatile int *)0xffff0004); } // returns value
   400298:	00812623          	sw	s0,12(sp)
   40029c:	01010413          	addi	s0,sp,16
   4002a0:	ffff07b7          	lui	a5,0xffff0
-  4002a4:	00478793          	addi	a5,a5,4 # ffff0004 <__stack_init+0xeffe0008>
+  4002a4:	00478793          	addi	a5,a5,4 # ffff0004 <__stack_init+0xeffd0008>
   4002a8:	0007a783          	lw	a5,0(a5)
   4002ac:	00078513          	mv	a0,a5
   4002b0:	00c12403          	lw	s0,12(sp)

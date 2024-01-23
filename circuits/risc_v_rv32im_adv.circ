@@ -25,6 +25,9 @@
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
     </tool>
+    <tool name="Tunnel">
+      <a name="facing" val="north"/>
+    </tool>
     <tool name="Clock">
       <a name="facing" val="north"/>
     </tool>
@@ -502,7 +505,7 @@
       <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(440,380)" name="Constant">
-      <a name="value" val="0x1000"/>
+      <a name="value" val="0x1001"/>
       <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(460,600)" name="Constant">
@@ -735,18 +738,31 @@
       <a name="addrWidth" val="14"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 14 32
-fc10117 ffc10113 513 593 613 6c000ef eeeeeeee fd010113
-2812623 3010413 fca42e23 fe042623 2c0006f fec42783 fdc42703 f70733
-ffff07b7 c78793 74703 e78023 fec42783 178793 fef42623 fec42783
-fdc42703 f707b3 7c783 fc0794e3 13 2c12403 3010113 8067
-fe010113 112e23 812c23 2010413 ffff87b7 fef42423 4007b7 11c78513
-f7dff0ef fe042623 3c0006f fec42783 279793 fe842703 f707b3 400737
-12470693 fec42703 271713 e68733 72703 e7a023 fec42783 178793
-fef42623 fec42703 1f00793 fce7d0e3 ffff07b7 1078793 4737 f3f70713
-e79023 793 78513 1c12083 1812403 2010113 8067 6c6c6548
-a216f 8*ffffffff fff81fff ffe1e7ff ffc7f3ff ff8f39ff ff8f3dff ff0ffeff
-ff07feff ff007eff ff003eff ff001eff ff030eff ff830dff ff8009ff ffc003ff
-ffe007ff fff80fff 8*ffffffff
+fc20117 ffc10113 513 593 613 8000ef 6f ff010113
+112623 812423 912223 517 1f850513 60000ef 413 497
+20048493 741513 a48533 1b4000ef 140413 1f45793 f40433 147413
+40f40433 fe1ff06f 41f55793 a7c533 40f50533 8067 ffff07b7 a7a623
+8067 ffff07b7 a00713 e7a623 8067 54783 78c63 ffff0737
+f72623 150513 54783 fe079ae3 8067 ff010113 41f55813 2d87813
+410713 900613 a00593 fff60613 2b567b3 41f7d693 f6c7b3 40d787b3
+3078793 f70423 2b54533 fff70713 fc051ee3 80663 ffff07b7 107a623
+900793 2c7c263 410793 c787b3 e10693 ffff0637 7c703 e62623
+178793 fed79ae3 1010113 8067 ffff07b7 7a503 8067 ffff07b7
+47a503 8067 50693 100793 4b7d263 fff58613 513 ffff0737
+a00593 72783 fe078ee3 472783 ff7f793 f68023 b78a63 168693
+150513 fec510e3 60513 68023 8067 fff00513 8067 100593
+513 ffff0737 900613 100813 2d00893 fff00313 200006f fd068793
+2f66c63 251793 a787b3 179793 fd068693 f68533 72783 fe078ee3
+472683 fc051ce3 fd059ae3 fd1698e3 30593 fe5ff06f 2b50533 8067
+ffff82b7 2000313 52383 72a023 428293 450513 fff30313 fe0316e3
+8067 70736944 6979616c 7020676e 75746369 2e736572 a2e2e 0
+0 0 3ff000 e01c00 3f03f00 7f87f80 ff87fc0 ffcffc0
+1ffcffe0 1e7cf9e0 3cb874f0 3e7879f0 3ff03ff0 3fc78ff0 3fcfcff0 3f9fe7f0
+3f9fe7f0 1f8fc7e0 1ea015e0 e9025c0 ca794c0 c8844c0 8986440 e01c00
+0 303000 3cf000 3ff000 3cf000 303000 6*0 1e00060
+61f0050 8008028 10004028 24002014 2a089014 24149014 2008a028 1000a3f0
+1000cc08 38077004 38080004 30100006 18600002 78000e2 800192 a43912
+13c4f22 124403c 2248000 3c88000 f0000
 </a>
       <a name="dataWidth" val="32"/>
       <a name="labelvisible" val="true"/>
@@ -831,7 +847,7 @@ ffe007ff fff80fff 8*ffffffff
     <comp lib="8" loc="(1445,295)" name="Text">
       <a name="text" val="clear"/>
     </comp>
-    <comp lib="8" loc="(147,286)" name="Text">
+    <comp lib="8" loc="(145,285)" name="Text">
       <a name="text" val="press to continue"/>
     </comp>
     <comp lib="8" loc="(185,380)" name="Text">
@@ -844,14 +860,14 @@ ffe007ff fff80fff 8*ffffffff
     <comp lib="8" loc="(300,205)" name="Text">
       <a name="text" val="CPU halted"/>
     </comp>
+    <comp lib="8" loc="(305,285)" name="Text">
+      <a name="text" val="Clock cycles"/>
+    </comp>
     <comp lib="8" loc="(305,60)" name="Text">
       <a name="text" val="Address --&gt;"/>
     </comp>
     <comp lib="8" loc="(305,90)" name="Text">
       <a name="text" val="Data out  --&gt;"/>
-    </comp>
-    <comp lib="8" loc="(309,288)" name="Text">
-      <a name="text" val="Clock cycles"/>
     </comp>
     <comp lib="8" loc="(720,270)" name="Text">
       <a name="text" val="RAM"/>
@@ -11369,10 +11385,10 @@ ffe007ff fff80fff 8*ffffffff
       <a name="label" val="D2"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="8" loc="(1133,21)" name="Text">
+    <comp lib="8" loc="(1130,20)" name="Text">
       <a name="text" val="cache misses"/>
     </comp>
-    <comp lib="8" loc="(990,22)" name="Text">
+    <comp lib="8" loc="(990,20)" name="Text">
       <a name="text" val="cache hits"/>
     </comp>
     <wire from="(100,280)" to="(120,280)"/>

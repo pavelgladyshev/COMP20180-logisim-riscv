@@ -11,8 +11,8 @@ Disassembly of section .init:
 	.globl _start
 _start:                       # this is where CPU starts executing instructions after reset / power-on
 	la sp,__stack_init        # initialise sp (with the value that points to the last word of RAM)
-  400000:	0fc10117          	auipc	sp,0xfc10
-  400004:	ffc10113          	addi	sp,sp,-4 # 1000fffc <__stack_init>
+  400000:	0fc20117          	auipc	sp,0xfc20
+  400004:	ffc10113          	addi	sp,sp,-4 # 1001fffc <__stack_init>
 	li a0,0                   # populate optional main() parameters with dummy values (just in case)
   400008:	00000513          	li	a0,0
 	li a1,0
@@ -43,16 +43,16 @@ int main()
     int i;
     
     printstr("Displaying pictures...\n");
-  40002c:	00400537          	lui	a0,0x400
-  400030:	22450513          	addi	a0,a0,548 # 400224 <loop+0x1c>
+  40002c:	00000517          	auipc	a0,0x0
+  400030:	1f850513          	addi	a0,a0,504 # 400224 <loop+0x1c>
   400034:	060000ef          	jal	ra,400094 <printstr>
     
     for( i=0 ;; i=(i+1) % PICTURES_TOTAL)   // Looping through the pictures forever
   400038:	00000413          	li	s0,0
     {
         showpic(pictures[i]);               // output next picture to the graphics display
-  40003c:	004004b7          	lui	s1,0x400
-  400040:	23c48493          	addi	s1,s1,572 # 40023c <pictures>
+  40003c:	00000497          	auipc	s1,0x0
+  400040:	20048493          	addi	s1,s1,512 # 40023c <pictures>
   400044:	00741513          	slli	a0,s0,0x7
   400048:	00a48533          	add	a0,s1,a0
   40004c:	1b4000ef          	jal	ra,400200 <showpic>
@@ -81,13 +81,13 @@ inline int abs(int n) { return (n < 0) ? (-n) : n; }
 // prints single character to console - a substitute for the standard library funciton putch(int chr)
 inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // write into TDR (don't forget to specify "volatile" !)
   400078:	ffff07b7          	lui	a5,0xffff0
-  40007c:	00a7a623          	sw	a0,12(a5) # ffff000c <__stack_init+0xeffe0010>
+  40007c:	00a7a623          	sw	a0,12(a5) # ffff000c <__stack_init+0xeffd0010>
   400080:	00008067          	ret
 
 00400084 <println>:
   400084:	ffff07b7          	lui	a5,0xffff0
   400088:	00a00713          	li	a4,10
-  40008c:	00e7a623          	sw	a4,12(a5) # ffff000c <__stack_init+0xeffe0010>
+  40008c:	00e7a623          	sw	a4,12(a5) # ffff000c <__stack_init+0xeffd0010>
 
 // prints newline character to console
 void println() { printchar('\n'); }
@@ -103,7 +103,7 @@ void printstr(char *str)
   400098:	00078c63          	beqz	a5,4000b0 <printstr+0x1c>
 inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // write into TDR (don't forget to specify "volatile" !)
   40009c:	ffff0737          	lui	a4,0xffff0
-  4000a0:	00f72623          	sw	a5,12(a4) # ffff000c <__stack_init+0xeffe0010>
+  4000a0:	00f72623          	sw	a5,12(a4) # ffff000c <__stack_init+0xeffd0010>
     {
         printchar(*str);
         str += 1;
@@ -158,7 +158,7 @@ void printint(int n)
   4000f4:	00080663          	beqz	a6,400100 <printint+0x4c>
 inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // write into TDR (don't forget to specify "volatile" !)
   4000f8:	ffff07b7          	lui	a5,0xffff0
-  4000fc:	0107a623          	sw	a6,12(a5) # ffff000c <__stack_init+0xeffe0010>
+  4000fc:	0107a623          	sw	a6,12(a5) # ffff000c <__stack_init+0xeffd0010>
     {
         printchar(sign);
     }
@@ -172,7 +172,7 @@ inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // wri
 inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // write into TDR (don't forget to specify "volatile" !)
   400114:	ffff0637          	lui	a2,0xffff0
   400118:	0007c703          	lbu	a4,0(a5)
-  40011c:	00e62623          	sw	a4,12(a2) # ffff000c <__stack_init+0xeffe0010>
+  40011c:	00e62623          	sw	a4,12(a2) # ffff000c <__stack_init+0xeffd0010>
     while(i < MAX_INT_DIGITS)
   400120:	00178793          	addi	a5,a5,1
   400124:	fed79ae3          	bne	a5,a3,400118 <printint+0x64>
@@ -190,7 +190,7 @@ inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // wri
 // check if keyboard buffer has some data
 inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value of RCR  (don't forget to specify "volatile"!) 
   400130:	ffff07b7          	lui	a5,0xffff0
-  400134:	0007a503          	lw	a0,0(a5) # ffff0000 <__stack_init+0xeffe0004>
+  400134:	0007a503          	lw	a0,0(a5) # ffff0000 <__stack_init+0xeffd0004>
   400138:	00008067          	ret
 
 0040013c <readchar>:
@@ -198,7 +198,7 @@ inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value 
 // read next character from keyboard buffer
 inline int readchar() { return *((volatile int *)0xffff0004); } // returns value of RDR  (don't forget to specify "volatile"!) 
   40013c:	ffff07b7          	lui	a5,0xffff0
-  400140:	0047a503          	lw	a0,4(a5) # ffff0004 <__stack_init+0xeffe0008>
+  400140:	0047a503          	lw	a0,4(a5) # ffff0004 <__stack_init+0xeffd0008>
   400144:	00008067          	ret
 
 00400148 <readstr>:
@@ -226,7 +226,7 @@ inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value 
        if (*buf == '\n') 
   400160:	00a00593          	li	a1,10
 inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value of RCR  (don't forget to specify "volatile"!) 
-  400164:	00072783          	lw	a5,0(a4) # ffff0000 <__stack_init+0xeffe0004>
+  400164:	00072783          	lw	a5,0(a4) # ffff0000 <__stack_init+0xeffd0004>
        while (pollkbd() == 0) 
   400168:	fe078ee3          	beqz	a5,400164 <readstr+0x1c>
 inline int readchar() { return *((volatile int *)0xffff0004); } // returns value of RDR  (don't forget to specify "volatile"!) 
@@ -305,7 +305,7 @@ inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value 
   4001d0:	fd068693          	addi	a3,a3,-48
   4001d4:	00f68533          	add	a0,a3,a5
 inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value of RCR  (don't forget to specify "volatile"!) 
-  4001d8:	00072783          	lw	a5,0(a4) # ffff0000 <__stack_init+0xeffe0004>
+  4001d8:	00072783          	lw	a5,0(a4) # ffff0000 <__stack_init+0xeffd0004>
        while (pollkbd() == 0) 
   4001dc:	fe078ee3          	beqz	a5,4001d8 <readint+0x3c>
 inline int readchar() { return *((volatile int *)0xffff0004); } // returns value of RDR  (don't forget to specify "volatile"!) 
@@ -342,7 +342,7 @@ loop:
     lw t2,0(a0)         # load next line (word) of the picture data
   400208:	00052383          	lw	t2,0(a0)
     sw t2,0(t0)         # write it to the corresponding line of the graphics display
-  40020c:	0072a023          	sw	t2,0(t0) # ffff8000 <__stack_init+0xeffe8004>
+  40020c:	0072a023          	sw	t2,0(t0) # ffff8000 <__stack_init+0xeffd8004>
     addi t0,t0,4        # move to the next line of the graphics display
   400210:	00428293          	addi	t0,t0,4
     addi a0,a0,4        # move to the next line of the picture data
