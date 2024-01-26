@@ -1,8 +1,8 @@
 
     .text
-    .globl start 
+    .globl _start 
     
-start:
+_start:
     li a0, 5            # X
     li a1, 8            # Y
     li t0, 0xffff8000   # base address of display

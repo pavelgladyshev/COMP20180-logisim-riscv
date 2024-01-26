@@ -41,11 +41,15 @@ This should produce a .TXT file with raw binary code in hexadecimal, which can b
 
 # Compiling software for RISC-V simulated in qemu
 
-Some of the projects including simple-assembly, set-pixel-asm, set-pixel-c, simple-c, and c-and-assembly can be compiled and run on QEMU simulator using comp20180 machine, which I created for COMP 20180 course by adding some of the RARS peripherals to QEMU virt platform. 
+Demo projects can also be compliled for a modified version of QEMU that has some of the RARS/Logisim peripherals added to it. This version of QEMU can be downloaded and build from github repository 
 
-Due to memory map differences, the address of serial console (TDR) in QEMU is 0x10000000 instead of 0xffff000C in Logisim risc_v_rv32im.circ and RARS simulators. So the source code of simple-c and c-and-assembly needs some changes in order to enable printing onto the console. Please see simple-c/main.c file for an example of how to do it (see commented out line).
+https://github.com/pavelgladyshev/COMP20180-qemu.git
 
-To build a suitable project for QEMU, cd into the directory with the project code and run make as follows:
+Due to hardware differences, the address of MMIO Display's Transmitter Data Register (TDR) in QEMU is 0x10000000 instead of 0xffff000C in Logisim risc_v_rv32im.circ and RARS simulators. The address of MMIO Keyboard's Receiver Data Register (RDR) in QEMU is the same as TDR (0x10000000) instead of 0xffff0004 in Logisim risc_v_rv32im.circ and RARS simulators. Memory write to 0x10000000 writes to TDR, but memory read from 0x10000000 reads from RDR. Unlike Logisim/RARS models, the ready bits of MMIO Display and Keyboard in QEMU are in the same status register (0x10000005): bit 0 =1 indicates that the user pressed a key on the keyboard and the code can be read from RDR; bit 5 =1 indicates that MMIO Display is ready to receive the next ASCII code to print via TDR. 
+
+To make source code work for both QEMU and Logisim/RARS models, portions of the C code that need to change are put inside #ifdef #else #endif macro definitions. Please see simple-c/main.c file for an example of how it is done (the block of code defining the address of TDR). For a more complete example study c-input-output/lib.c and c-input-output/lib.h files.
+
+To build a project for QEMU, cd into the directory with the project code and run make as follows:
 
 $ make clean
 

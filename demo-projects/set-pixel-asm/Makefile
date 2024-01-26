@@ -45,23 +45,26 @@ RISCV_ISA=rv32im
 # RISC-V function calling convention to use when compiling the program (ILP32 by default)
 RISCV_ABI=ilp32
 
+# Additional command line options for GCC
+CFLAGS=
+
 # Linker script file to use when producting the executable
-LINKER_SCRIPT_FILE=demo.lds
+LINKER_SCRIPT_FILE=logisim.lds
 
 # QEMU executable to use
 QEMU_APP=qemu-system-riscv64
 
 # rule and command to compile C files
 %.o : %.c
-	${RISCV_TOOL_PREFIX}gcc -O -march=$(RISCV_ISA) -mabi=$(RISCV_ABI) -mcmodel=medany -g -c $< -o $@
+	${RISCV_TOOL_PREFIX}gcc -O -march=$(RISCV_ISA) -mabi=$(RISCV_ABI) -mcmodel=medany -g -c $(CFLAGS) $< -o $@
 
 # rule and command to process .S assembly files using GNU C compiler (.S files may contain C-style #include and #define statements)
 %.o : %.S
-	${RISCV_TOOL_PREFIX}gcc -O -march=$(RISCV_ISA) -mabi=$(RISCV_ABI) -mcmodel=medany -g -c $< -o $@
+	${RISCV_TOOL_PREFIX}gcc -O -march=$(RISCV_ISA) -mabi=$(RISCV_ABI) -mcmodel=medany -g -c $(CFLAGS) $< -o $@
 	
 # rule and command to process .s assembly files using GNU Assembler (.s files must use pure assembly language syntax)
 %.o : %.s
-	${RISCV_TOOL_PREFIX}as -march=$(RISCV_ISA) -g -c $< -o $@
+	${RISCV_TOOL_PREFIX}as -march=$(RISCV_ISA) -mabi=$(RISCV_ABI) -g -c $< -o $@
 	
 # rule that says that all object files need to be recompiled if any of the header files change
 # $(OBJECT_FILES) : $(HEADER_FILES)
@@ -77,7 +80,7 @@ $(ROM_IMAGE) : $(EXECUTABLE)
 	${RISCV_TOOL_PREFIX}objcopy --only-section .init --only-section .text --only-section .rodata --only-section .srodata --only-section .data --only-section .sdata --only-section .text.* --only-section .rodata.* --only-section .srodata.* --only-section .data.* --only-section .sdata.*  --output-target binary $(EXECUTABLE) $(ROM_IMAGE)
 
 # rule and commands to convert the binary ROM image into .txt file that can be loaded into Logisim ROM component 
-$(ROM_IMAGE_TXT) : $(ROM_IMAGE)
+$(ROM_IMAGE_TXT) : clean $(ROM_IMAGE)
 	echo "v2.0 raw" >$(ROM_IMAGE_TXT)
 	hexdump -v -e '/4 "%08x""\n"""' $(ROM_IMAGE) >>$(ROM_IMAGE_TXT)
 
@@ -85,13 +88,19 @@ $(ROM_IMAGE_TXT) : $(ROM_IMAGE)
 clean: 
 	rm -f $(OBJECT_FILES) $(ROM_IMAGE_TXT) $(ROM_IMAGE) $(EXECUTABLE) $(EXECUTABLE).map $(EXECUTABLE).sym $(EXECUTABLE).asm 
 
+# compiling code for COMP20180-qemu requires changing target architecture type to RV64, calling convention to lp64,
+# using different linker script file (qemu.lds), and defining C macro QEMU20180, so that C code can change
+# definitions for MMIO Keyboard and Console peripheral to match memory map of QEMU20180's comp20180 machine.
 compile-for-qemu: RISCV_ISA=rv64g
 compile-for-qemu: RISCV_ABI=lp64
+compile-for-qemu: CFLAGS+=-DQEMU20180
 compile-for-qemu: LINKER_SCRIPT_FILE=qemu.lds
-compile-for-qemu: $(EXECUTABLE)
+compile-for-qemu: clean $(EXECUTABLE)
 
+# run compiled program in qemu, redirect MMIO Keybard and Console to use command line.
 qemu: compile-for-qemu
 	$(QEMU_APP) -machine comp20180 -kernel $(EXECUTABLE) -bios none -serial stdio
 
+# start compiled program in qemu and freeze it until GDB connects at localhost:1234
 qemu-gdb: compile-for-qemu
 	$(QEMU_APP) -s -S -machine comp20180 -kernel $(EXECUTABLE) -bios none -serial stdio

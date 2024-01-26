@@ -18,12 +18,13 @@ void printstr(char *str)
  
     ptr = str;    // set pointer to the start of the string
     
+#ifdef QEMU20180
+    TDR = (volatile int *)0x10000000;  // Address of console transmitter in QEMU comp20180 machine.
+#else
     TDR = (volatile int *)0xffff000c;  // set TDR pointer to the address of Logisim memory-mapped Transmitter Data Register
                                        // the (volatile int *)0xffff000c expession "casts" 0xffff000c as the value 
                                        // for the pointer (i.e. as memory address)  
-
-    // UNCOMMENT THE NEXT LINE if compiling for QEMU!!!
-    // TDR = (volatile int *)0x10000000;  // Address of console transmitter in QEMU comp20180 machine.
+#endif
 
     while (*ptr != '\0')  // keep printing characters until we reach NUL character ('\0') at the end of the string
     {

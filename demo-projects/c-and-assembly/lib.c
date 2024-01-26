@@ -12,7 +12,7 @@
 inline int abs(int n) { return (n < 0) ? (-n) : n; }
 
 // prints single character to console - a substitute for the standard library funciton putch(int chr)
-inline void printchar(char chr) { *((volatile int *)0xffff000c) = chr; }  // write into TDR (don't forget to specify "volatile" !)
+inline void printchar(char chr) { *(TDR) = chr; }  // write into TDR 
 
 // prints newline character to console
 void println() { printchar('\n'); }
@@ -73,10 +73,11 @@ void printint(int n)
 
 
 // check if keyboard buffer has some data
-inline int pollkbd() { return *((volatile int *)0xffff0000); } // returns value of RCR  (don't forget to specify "volatile"!) 
+inline int pollkbd() { return *(RCR); } // returns value of RCR  (don't forget to specify "volatile"!) 
 
 // read next character from keyboard buffer
-inline int readchar() { return *((volatile int *)0xffff0004); } // returns value of RDR  (don't forget to specify "volatile"!) 
+//inline int readchar() { return *((volatile int *)0xffff0004); } // returns value of RDR  (don't forget to specify "volatile"!) 
+inline int readchar() { return *(RDR); } // returns value of RDR  (don't forget to specify "volatile"!) 
 
 // read characters into provided buffer until either user presses enter or the buffer size is reached.
 int readstr(char *buf, int size)
@@ -89,7 +90,7 @@ int readstr(char *buf, int size)
     do
     {
        // wait until user presses some key
-       while (pollkbd() == 0) 
+       while ((pollkbd() & RDR_READY_BIT) == 0) 
        {
        }
        
@@ -97,7 +98,7 @@ int readstr(char *buf, int size)
        *buf = (char)readchar();
        
        // if the user pressed Enter, stop reading
-       if (*buf == '\n') 
+       if (*buf == ENTER_CHAR_CODE) 
        {
            break;
        }
@@ -128,13 +129,13 @@ int readint()
     for(;;)
     {
        // wait until user presses some key
-       while (pollkbd() == 0) 
+       while ((pollkbd() & RDR_READY_BIT) == 0) 
        {
        }
        
        // read character
        chr = readchar();
-       
+
        // if no digits have yet been read, '-' is interpreted as a negative sign
        if (res == 0 && sign == 1 && chr == '-') 
        {
